@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "cisa-cool-dev-a-terraform-state"
+    bucket         = "cisa-cool-terraform-state"
     dynamodb_table = "terraform-state-lock"
     encrypt        = true
     key            = "cyhy-tf-root/terraform.tfstate"
