@@ -4,40 +4,76 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
-variable "subnet_id" {
-  description = "The ID of the AWS subnet to deploy into (e.g. subnet-0123456789abcdef0)."
-  nullable    = false
-  type        = string
-}
-
 # ------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 #
 # These parameters have reasonable defaults.
 # ------------------------------------------------------------------------------
-variable "ami_owner_account_id" {
-  default     = "self"
-  description = "The ID of the AWS account that owns the Example AMI, or \"self\" if the AMI is owned by the same account as the provisioner."
-  nullable    = false
-  type        = string
-}
 
-variable "aws_availability_zone" {
-  default     = "a"
-  description = "The AWS availability zone to deploy into (e.g. a, b, c, etc.)."
+variable "aws_availability_zones" {
+  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  description = "The list of AWS availability zones to deploy into (e.g. [\"us-east-1a\", \"us-east-1b\", \"us-east-1c\"]."
   nullable    = false
-  type        = string
+  type        = list(string)
 }
 
 variable "aws_region" {
   default     = "us-east-1"
-  description = "The AWS region to deploy into (e.g. us-east-1)."
+  description = "The AWS region to deploy into (e.g. \"us-east-1\")."
   nullable    = false
   type        = string
 }
 
+variable "db_instance_class" {
+  default     = "db.r5.large"
+  description = "The instance class to use for the DocumentDB cluster."
+  nullable    = false
+  type        = string
+}
+
+variable "db_name" {
+  default     = "cyhy"
+  description = "The name of the database to create."
+  nullable    = false
+  type        = string
+}
+
+variable "db_password" {
+  description = "The master password for the database user."
+  nullable    = false
+  type        = string
+}
+
+variable "db_port" {
+  default     = 27017
+  description = "The port to use for the DocumentDB cluster."
+  nullable    = false
+  type        = number
+}
+
+variable "db_username" {
+  description = "The master username for the database user."
+  nullable    = false
+  type        = string
+}
+
+variable "ec2_trusted_ingress_cidr_blocks" {
+  default     = []
+  description = "The CIDR blocks to allow access to the EC2 instance."
+  nullable    = false
+  type        = list(string)
+}
+
 variable "tags" {
   default     = {}
-  description = "Tags to apply to all AWS resources created"
+  description = "Tags to apply to all AWS resources created."
+  nullable    = false
   type        = map(string)
+}
+
+variable "vpc_cidr_block" {
+  default     = "10.0.0.0/16"
+  description = "The CIDR block to use for the VPC (e.g. \"10.0.0.0/16\")."
+  nullable    = false
+  type        = string
 }
