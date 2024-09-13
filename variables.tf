@@ -6,11 +6,13 @@
 
 variable "kevsync_lambda_s3_bucket" {
   description = "The name of the S3 bucket where the cyhy-kevsync Lambda deployment package is stored."
+  nullable    = false
   type        = string
 }
 
 variable "ssh_public_key_path" {
   description = "The local path to store the SSH public key used to access the EC2 instance."
+  nullable    = false
   type        = string
 }
 
@@ -83,60 +85,70 @@ variable "ec2_trusted_ingress_cidr_blocks" {
 variable "kevsync_lambda_cloudwatch_logs_retention_in_days" {
   default     = 90
   description = "The number of days to retain CloudWatch logs for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
+  nullable    = false
   type        = number
 }
 
 variable "kevsync_lambda_config_ssm_key" {
   default     = "/cyhy-kevsync/config"
   description = "The SSM key that contains the configuration to use for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
+  nullable    = false
   type        = string
 }
 
 variable "kevsync_lambda_description" {
   default     = "Syncs KEV data to the database in the Cyber Hygiene account."
   description = "The description to associate with the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
+  nullable    = false
   type        = string
 }
 
 variable "kevsync_lambda_env_variables" {
   default     = {}
   description = "The environment variables to set for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
+  nullable    = false
   type        = map(string)
 }
 
 variable "kevsync_lambda_handler" {
   default     = "lambda_handler.handler"
   description = "The handler to use for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
+  nullable    = false
   type        = string
 }
 
 variable "kevsync_lambda_name" {
   default     = "cyhy-kevsync"
   description = "The name to assign the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
+  nullable    = false
   type        = string
 }
 
 variable "kevsync_lambda_runtime" {
   default     = "python3.12"
   description = "The runtime to use for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
+  nullable    = false
   type        = string
 }
 
 variable "kevsync_lambda_s3_key" {
   default     = "cyhy-kevsync-lambda.zip"
   description = "The key of the cyhy-kevsync Lambda deployment package in the S3 bucket."
+  nullable    = false
   type        = string
 }
 
 variable "kevsync_lambda_schedule" {
   default     = "cron(0 6 * * ? *)"
   description = "The EventBridge expression that represents when to run the Lambda function that syncs KEV data to the database in the Cyber Hygiene account.  The default value indicates that the Lambda will run every day at 6:00 AM UTC.  See <https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html> for details on EventBridge expression syntax."
+  nullable    = false
   type        = string
 }
 
 variable "kevsync_lambda_timeout" {
   default     = 300
   description = "The timeout (in seconds) to use for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
+  nullable    = false
   type        = number
 }
 
