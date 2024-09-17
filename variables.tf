@@ -4,6 +4,11 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
+variable "ssh_public_key_path" {
+  description = "The local path to store the SSH public key used to access the EC2 instance."
+  type        = string
+}
+
 # ------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 #
