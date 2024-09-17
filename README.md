@@ -12,6 +12,9 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
   (specified in [`backend.tf`](backend.tf)).
 - An accessible AWS DynamoDB database to store the Terraform state lock
   (specified in [`backend.tf`](backend.tf)).
+- To configure a CyHy account within a COOL environment, we strongly recommend
+  using
+  [`cisagov/cool-accounts-cyhy`](https://github.com/cisagov/cool-accounts-cyhy).
 - A cyhy-kevsync Lambda deployment package stored in an S3 bucket (see the
   kevsync_lambda_s3_bucket and kevsync_lambda_s3_key variables).
 - A valid CyHy configuration stored in the Systems Manager (SSM) Parameter
