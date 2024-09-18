@@ -18,7 +18,7 @@ module "kevsync_lambda" {
   allowed_triggers = {
     kevsync = {
       principal  = "events.amazonaws.com"
-      source_arn = aws_cloudwatch_event_rule.kevsync_lambda_schedule.arn
+      source_arn = module.kevsync_eventbridge.eventbridge_rule_arns["${var.kevsync_lambda_name}"]
     }
   }
   attach_network_policy    = true
@@ -55,22 +55,37 @@ module "kevsync_lambda" {
 }
 
 # Schedule the Lambda function
-resource "aws_cloudwatch_event_rule" "kevsync_lambda_schedule" {
-  provider = aws.provisionaccount
+module "kevsync_eventbridge" {
+  providers = {
+    aws = aws.provisionaccount
+  }
 
-  description         = format("Executes %s Lambda on a schedule", module.kevsync_lambda.lambda_function_name)
-  name                = format("%s-schedule", module.kevsync_lambda.lambda_function_name)
-  schedule_expression = var.kevsync_lambda_schedule
-}
+  source  = "terraform-aws-modules/eventbridge/aws"
+  version = "3.11.0"
 
-resource "aws_cloudwatch_event_target" "kevsync_lambda_schedule" {
-  provider = aws.provisionaccount
+  create_bus  = false # We are using the default bus, so no need to create it
+  create_role = false # The role is created by the Lambda module, so no need to create it here
 
-  arn = module.kevsync_lambda.lambda_function_arn
-  input = jsonencode({
-    detail-type = "Scheduled Event"
-    source      = "aws.events"
-    task        = "sync"
-  })
-  rule = aws_cloudwatch_event_rule.kevsync_lambda_schedule.name
+  rules = {
+    "${var.kevsync_lambda_name}" = {
+      description         = format("Executes %s Lambda on a schedule", var.kevsync_lambda_name)
+      schedule_expression = var.kevsync_lambda_schedule
+    }
+  }
+
+  tags = var.tags
+
+  targets = {
+    "${var.kevsync_lambda_name}" = [
+      {
+        arn = module.kevsync_lambda.lambda_function_arn
+        input = jsonencode({
+          detail-type = "Scheduled Event"
+          source      = "aws.events"
+          task        = "sync"
+        })
+        name = var.kevsync_lambda_name
+      }
+    ]
+  }
 }
