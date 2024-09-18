@@ -54,13 +54,13 @@ module "kevsync_lambda" {
   vpc_subnet_ids         = module.subnets.private_subnet_ids
 }
 
-# Schedule the Lambda function to run every on X minutes
+# Schedule the Lambda function
 resource "aws_cloudwatch_event_rule" "kevsync_lambda_schedule" {
   provider = aws.provisionaccount
 
-  description         = format("Executes %s Lambda every %d minute(s).", module.kevsync_lambda.lambda_function_name, var.kevsync_lambda_schedule_interval)
-  name                = format("%s-every-%d-minutes", module.kevsync_lambda.lambda_function_name, var.kevsync_lambda_schedule_interval)
-  schedule_expression = format("rate(%d minute%s)", var.kevsync_lambda_schedule_interval, var.kevsync_lambda_schedule_interval != 1 ? "s" : "")
+  description         = format("Executes %s Lambda on a schedule", module.kevsync_lambda.lambda_function_name)
+  name                = format("%s-schedule", module.kevsync_lambda.lambda_function_name)
+  schedule_expression = var.kevsync_lambda_schedule
 }
 
 resource "aws_cloudwatch_event_target" "kevsync_lambda_schedule" {

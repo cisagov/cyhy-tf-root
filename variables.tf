@@ -108,10 +108,10 @@ variable "kevsync_lambda_s3_key" {
   type        = string
 }
 
-variable "kevsync_lambda_schedule_interval" {
-  default     = 1440
-  description = "The interval (in minutes) to use for the schedule of the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
-  type        = number
+variable "kevsync_lambda_schedule" {
+  default     = "cron(0 6 * * ? *)"
+  description = "The EventBridge expression that represents when to run the Lambda function that syncs KEV data to the database in the Cyber Hygiene account.  The default value of 'cron(0 6 * * ? *)' indicates that the Lambda will run every day at 6:00 AM UTC.  For details on EventBridge expression syntax, refer to https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html"
+  type        = string
 }
 
 variable "kevsync_lambda_timeout" {
