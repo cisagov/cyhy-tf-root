@@ -21,8 +21,9 @@ module "kevsync_lambda" {
       source_arn = module.kevsync_eventbridge.eventbridge_rule_arns["${var.kevsync_lambda_name}"]
     }
   }
-  attach_network_policy    = true
-  attach_policy_statements = true
+  attach_network_policy             = true
+  attach_policy_statements          = true
+  cloudwatch_logs_retention_in_days = var.kevsync_lambda_cloudwatch_logs_retention_in_days
 
   # This is necessary to avoid the following error:
   # "InvalidParameterValueException: We currently do not support adding policies
