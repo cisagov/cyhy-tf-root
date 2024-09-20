@@ -81,12 +81,7 @@ module "kevsync_eventbridge" {
   targets = {
     "${var.kevsync_lambda_name}" = [
       {
-        arn = module.kevsync_lambda.lambda_function_arn
-        input = jsonencode({
-          detail-type = "Scheduled Event"
-          source      = "aws.events"
-          task        = "sync"
-        })
+        arn  = module.kevsync_lambda.lambda_function_arn
         name = var.kevsync_lambda_name
       }
     ]
