@@ -66,6 +66,12 @@ variable "ec2_trusted_ingress_cidr_blocks" {
   type        = list(string)
 }
 
+variable "kevsync_lambda_cloudwatch_logs_retention_in_days" {
+  default     = 90
+  description = "The number of days to retain CloudWatch logs for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
+  type        = number
+}
+
 variable "kevsync_lambda_config_ssm_key" {
   default     = "/cyhy-kevsync/config"
   description = "The SSM key that contains the configuration to use for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account."
