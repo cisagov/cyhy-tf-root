@@ -63,8 +63,11 @@ module "kevsync_eventbridge" {
   source  = "terraform-aws-modules/eventbridge/aws"
   version = "3.11.0"
 
-  create_bus  = false # We are using the default bus, so no need to create it
-  create_role = false # The role is created by the Lambda module, so no need to create it here
+  # We are using the default bus, so no need to create it here.
+  create_bus = false
+  # The role allowing the Lambda to be triggered by this EventBridge rule is
+  # created by the Lambda module, so no need to create it here.
+  create_role = false
 
   rules = {
     "${var.kevsync_lambda_name}" = {
