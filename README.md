@@ -58,6 +58,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 | aws\_key\_pair | cloudposse/key-pair/aws | 0.18.3 |
 | documentdb-cluster | cloudposse/documentdb-cluster/aws | 0.27.0 |
 | ec2 | cloudposse/ec2-instance/aws | 1.6.0 |
+| kevsync\_eventbridge | terraform-aws-modules/eventbridge/aws | 3.11.0 |
 | kevsync\_lambda | terraform-aws-modules/lambda/aws | 7.9.0 |
 | subnets | cloudposse/dynamic-subnets/aws | 2.4.2 |
 | vpc | cloudposse/vpc/aws | 2.1.1 |
@@ -66,8 +67,6 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 
 | Name | Type |
 |------|------|
-| [aws_cloudwatch_event_rule.kevsync_lambda_schedule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
-| [aws_cloudwatch_event_target.kevsync_lambda_schedule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
 | [aws_security_group_rule.egress_from_ec2_to_documentdb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_from_ec2_to_documentdb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_caller_identity.cyhy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
@@ -84,6 +83,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 | db\_port | The port to use for the DocumentDB cluster. | `number` | `27017` | no |
 | db\_username | The master username for the database user. | `string` | n/a | yes |
 | ec2\_trusted\_ingress\_cidr\_blocks | The CIDR blocks to allow access to the EC2 instance. | `list(string)` | `[]` | no |
+| kevsync\_lambda\_cloudwatch\_logs\_retention\_in\_days | The number of days to retain CloudWatch logs for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account. | `number` | `90` | no |
 | kevsync\_lambda\_config\_ssm\_key | The SSM key that contains the configuration to use for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account. | `string` | `"/cyhy-kevsync/config"` | no |
 | kevsync\_lambda\_description | The description to associate with the Lambda function that syncs KEV data to the database in the Cyber Hygiene account. | `string` | `"Syncs KEV data to the database in the Cyber Hygiene account."` | no |
 | kevsync\_lambda\_env\_variables | The environment variables to set for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account. | `map(string)` | `{}` | no |
@@ -92,7 +92,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 | kevsync\_lambda\_runtime | The runtime to use for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account. | `string` | `"python3.12"` | no |
 | kevsync\_lambda\_s3\_bucket | The name of the S3 bucket where the cyhy-kevsync Lambda deployment package is stored. | `string` | n/a | yes |
 | kevsync\_lambda\_s3\_key | The key of the cyhy-kevsync Lambda deployment package in the S3 bucket. | `string` | `"cyhy-kevsync-lambda.zip"` | no |
-| kevsync\_lambda\_schedule\_interval | The interval (in minutes) to use for the schedule of the Lambda function that syncs KEV data to the database in the Cyber Hygiene account. | `number` | `1440` | no |
+| kevsync\_lambda\_schedule | The EventBridge expression that represents when to run the Lambda function that syncs KEV data to the database in the Cyber Hygiene account.  The default value indicates that the Lambda will run every day at 6:00 AM UTC.  For details on EventBridge expression syntax, refer to <https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html> | `string` | `"cron(0 6 * * ? *)"` | no |
 | kevsync\_lambda\_timeout | The timeout (in seconds) to use for the Lambda function that syncs KEV data to the database in the Cyber Hygiene account. | `number` | `300` | no |
 | ssh\_public\_key\_path | The local path to store the SSH public key used to access the EC2 instance. | `string` | n/a | yes |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
