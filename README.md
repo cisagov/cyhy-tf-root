@@ -77,6 +77,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 |------|-------------|------|---------|:--------:|
 | aws\_availability\_zones | The list of AWS availability zones to deploy into (e.g. ["us-east-1a", "us-east-1b", "us-east-1c"]. | `list(string)` | ```[ "us-east-1a", "us-east-1b", "us-east-1c" ]``` | no |
 | aws\_region | The AWS region to deploy into (e.g. "us-east-1"). | `string` | `"us-east-1"` | no |
+| db\_cluster\_size | The number of instances to use for the DocumentDB cluster. | `number` | `3` | no |
 | db\_instance\_class | The instance class to use for the DocumentDB cluster. | `string` | `"db.r5.large"` | no |
 | db\_name | The name of the database to create. | `string` | `"cyhy"` | no |
 | db\_password | The master password for the database user. | `string` | n/a | yes |
