@@ -6,6 +6,7 @@ module "documentdb-cluster" {
   source  = "cloudposse/documentdb-cluster/aws"
   version = "0.27.0"
 
+  cluster_size    = var.db_cluster_size
   db_port         = var.db_port
   instance_class  = var.db_instance_class
   master_password = var.db_password

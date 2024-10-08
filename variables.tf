@@ -32,6 +32,12 @@ variable "aws_region" {
   type        = string
 }
 
+variable "db_cluster_size" {
+  default     = 3
+  description = "The number of instances to use for the DocumentDB cluster."
+  type        = number
+}
+
 variable "db_instance_class" {
   default     = "db.r5.large"
   description = "The instance class to use for the DocumentDB cluster."
