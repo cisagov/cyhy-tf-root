@@ -18,7 +18,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 - A cyhy-kevsync Lambda deployment package stored in an S3 bucket (see the
   `kevsync_lambda_s3_bucket` and `kevsync_lambda_s3_key` variables).
 - A valid CyHy configuration stored in the Systems Manager (SSM) Parameter
-  Store of the Cyber Hygiene account (see the kevsync_lambda_config_ssm_key
+  Store of the Cyber Hygiene account (see the `kevsync_lambda_config_ssm_key`
   variable).
 - A Terraform [variables](variables.tf) file customized for your use case, for
   example:
