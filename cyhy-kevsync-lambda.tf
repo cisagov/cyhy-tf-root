@@ -55,6 +55,14 @@ module "kevsync_lambda" {
   vpc_subnet_ids         = module.subnets.private_subnet_ids
 }
 
+# Invoke the Lamdba function to initially load KEV data into the database
+resource "aws_lambda_invocation" "kevsync" {
+  provider = aws.provisionaccount
+
+  function_name = module.kevsync_lambda.lambda_function_name
+  input         = "{}"
+}
+
 # Schedule the Lambda function
 module "kevsync_eventbridge" {
   providers = {
