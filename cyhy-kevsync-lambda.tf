@@ -58,9 +58,8 @@ module "kevsync_lambda" {
     key        = var.kevsync_lambda_s3_key
     version_id = data.aws_s3_object.kevsync_lambda.version_id
   }
-  tags    = var.tags
-  timeout = var.kevsync_lambda_timeout
-  # TODO: Decide if we need the EC2 instance or not.  If not, we need to create a security group for the Lambda function.
+  tags                   = var.tags
+  timeout                = var.kevsync_lambda_timeout
   vpc_security_group_ids = [module.ec2.security_group_id]
   vpc_subnet_ids         = module.subnets.private_subnet_ids
 }
