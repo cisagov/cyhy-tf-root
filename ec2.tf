@@ -42,8 +42,9 @@ module "ec2" {
       cidr_blocks = ["0.0.0.0/0"]
     },
   ]
-  ssh_key_pair = module.aws_key_pair.key_name
-  subnet       = module.subnets.public_subnet_ids[0]
-  tags         = var.tags
-  vpc_id       = module.vpc.vpc_id
+  ssh_key_pair        = module.aws_key_pair.key_name
+  subnet              = module.subnets.public_subnet_ids[0]
+  tags                = var.tags
+  volume_tags_enabled = false
+  vpc_id              = module.vpc.vpc_id
 }
