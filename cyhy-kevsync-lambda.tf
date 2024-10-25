@@ -7,6 +7,15 @@
 #   Store of the Cyber Hygiene account (see the kevsync_lambda_config_ssm_key
 #   variable)
 
+# Fetch the Lambda deployment package from the S3 bucket where it is stored
+# so that we can check its version ID and update the Lambda function when a new
+# version is uploaded.
+data "aws_s3_object" "kevsync_lambda" {
+  provider = aws.provisionaccount
+
+  bucket = var.kevsync_lambda_s3_bucket
+  key    = var.kevsync_lambda_s3_key
+}
 module "kevsync_lambda" {
   providers = {
     aws = aws.provisionaccount
@@ -45,8 +54,9 @@ module "kevsync_lambda" {
   }
   runtime = var.kevsync_lambda_runtime
   s3_existing_package = {
-    bucket = var.kevsync_lambda_s3_bucket
-    key    = var.kevsync_lambda_s3_key
+    bucket     = var.kevsync_lambda_s3_bucket
+    key        = var.kevsync_lambda_s3_key
+    version_id = data.aws_s3_object.kevsync_lambda.version_id
   }
   tags    = var.tags
   timeout = var.kevsync_lambda_timeout
