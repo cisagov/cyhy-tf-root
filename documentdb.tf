@@ -12,7 +12,7 @@ module "documentdb-cluster" {
   master_password = var.db_password
   master_username = var.db_username
   name            = var.db_name
-  namespace       = terraform.workspace # TODO: Decide if this should be a parameter
+  namespace       = terraform.workspace
   subnet_ids      = module.subnets.private_subnet_ids
   tags            = var.tags
   vpc_id          = module.vpc.vpc_id
