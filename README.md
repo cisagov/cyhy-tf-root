@@ -71,6 +71,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 | [aws_security_group_rule.egress_from_ec2_to_documentdb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_from_ec2_to_documentdb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_caller_identity.cyhy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_s3_object.kevsync_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_object) | data source |
 
 ## Inputs ##
 
