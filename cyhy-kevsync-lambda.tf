@@ -16,6 +16,7 @@ data "aws_s3_object" "kevsync_lambda" {
   bucket = var.kevsync_lambda_s3_bucket
   key    = var.kevsync_lambda_s3_key
 }
+
 module "kevsync_lambda" {
   providers = {
     aws = aws.provisionaccount
