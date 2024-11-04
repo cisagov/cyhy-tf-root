@@ -103,7 +103,14 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 
 ## Outputs ##
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| documentdb\_arn | The ARN of the DocumentDB cluster. |
+| documentdb\_endpoint | The endpoint of the DocumentDB cluster. |
+| documentdb\_sg\_arn | The ARN of the DocumentDB cluster security group. |
+| ec2 | The EC2 instance that is allowed to access the DocumentDB cluster. |
+| subnets | The subnets within the CyHy VPC. |
+| vpc | The CyHy VPC. |
 <!-- END_TF_DOCS -->
 
 ## Notes ##
