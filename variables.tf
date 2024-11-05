@@ -4,6 +4,11 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
+variable "cvesync_lambda_s3_bucket" {
+  description = "The name of the S3 bucket where the cyhy-cvesync Lambda deployment package is stored."
+  type        = string
+}
+
 variable "kevsync_lambda_s3_bucket" {
   description = "The name of the S3 bucket where the cyhy-kevsync Lambda deployment package is stored."
   nullable    = false
@@ -34,6 +39,72 @@ variable "aws_region" {
   description = "The AWS region to deploy into (e.g. \"us-east-1\")."
   nullable    = false
   type        = string
+}
+
+variable "cvesync_lambda_cloudwatch_logs_retention_in_days" {
+  default     = 90
+  description = "The number of days to retain CloudWatch logs for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account."
+  type        = number
+}
+
+variable "cvesync_lambda_config_ssm_key" {
+  default     = "/cyhy-cvesync/config"
+  description = "The SSM key that contains the configuration to use for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account."
+  type        = string
+}
+
+variable "cvesync_lambda_description" {
+  default     = "Syncs CVE data to the database in the Cyber Hygiene account."
+  description = "The description to associate with the Lambda function that syncs CVE data to the database in the Cyber Hygiene account."
+  type        = string
+}
+
+variable "cvesync_lambda_env_variables" {
+  default     = {}
+  description = "The environment variables to set for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account."
+  type        = map(string)
+}
+
+variable "cvesync_lambda_handler" {
+  default     = "lambda_handler.handler"
+  description = "The handler to use for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account."
+  type        = string
+}
+
+variable "cvesync_lambda_memory" {
+  default     = 2048
+  description = "The amount of memory (in MB) to allocate to the Lambda function that syncs CVE data to the database in the Cyber Hygiene account."
+  type        = number
+}
+
+variable "cvesync_lambda_name" {
+  default     = "cyhy-cvesync"
+  description = "The name to assign the Lambda function that syncs CVE data to the database in the Cyber Hygiene account."
+  type        = string
+}
+
+variable "cvesync_lambda_runtime" {
+  default     = "python3.12"
+  description = "The runtime to use for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account."
+  type        = string
+}
+
+variable "cvesync_lambda_s3_key" {
+  default     = "cyhy-cvesync-lambda.zip"
+  description = "The key of the cyhy-cvesync Lambda deployment package in the S3 bucket."
+  type        = string
+}
+
+variable "cvesync_lambda_schedule" {
+  default     = "cron(0 5 * * ? *)"
+  description = "The EventBridge expression that represents when to run the Lambda function that syncs CVE data to the database in the Cyber Hygiene account.  The default value indicates that the Lambda will run every day at 5:00 AM UTC.  See <https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html> for details on EventBridge expression syntax."
+  type        = string
+}
+
+variable "cvesync_lambda_timeout" {
+  default     = 900
+  description = "The timeout (in seconds) to use for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account."
+  type        = number
 }
 
 variable "db_cluster_size" {
