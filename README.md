@@ -33,10 +33,6 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
   }
   ```
 
-## Examples ##
-
-- [Basic usage](https://github.com/cisagov/cyhy-tf-root/tree/develop/examples/basic_usage)
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements ##
 
