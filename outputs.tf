@@ -1,3 +1,8 @@
+# Note that we do not have an output for the entire documentdb-cluster module.
+# This is because the module has at least one sensitive output (the master
+# password) that we do not want to expose.  Instead, we only output the key
+# pieces of information from the module that are not sensitive.
+
 output "documentdb_arn" {
   description = "The ARN of the DocumentDB cluster."
   value       = module.documentdb-cluster.arn
