@@ -15,15 +15,20 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 - To configure a CyHy account within a COOL environment, we strongly recommend
   using
   [`cisagov/cool-accounts-cyhy`](https://github.com/cisagov/cool-accounts-cyhy).
+- A cyhy-cvesync Lambda deployment package stored in an S3 bucket (see the
+  `cvesync_lambda_s3_bucket` and `cvesync_lambda_s3_key` variables).
 - A cyhy-kevsync Lambda deployment package stored in an S3 bucket (see the
   `kevsync_lambda_s3_bucket` and `kevsync_lambda_s3_key` variables).
-- A valid CyHy configuration stored in the Systems Manager (SSM) Parameter
-  Store of the Cyber Hygiene account (see the `kevsync_lambda_config_ssm_key`
-  variable).
+- Valid CyHy configurations stored in the Systems Manager (SSM) Parameter
+  Store of the Cyber Hygiene account for:
+  - The cyhy-cvesync Lambda (see the `cvesync_lambda_config_ssm_key` variable)
+  - The cyhy-kevsync Lambda (see the `kevsync_lambda_config_ssm_key`
+  variable)
 - A Terraform [variables](variables.tf) file customized for your use case, for
   example:
 
   ```hcl
+  cvesync_lambda_s3_bucket = "my-lambda-deployment-artifacts"
   kevsync_lambda_s3_bucket = "my-lambda-deployment-artifacts"
   ssh_public_key_path      = "/home/.ssh"
 
@@ -52,6 +57,8 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 | Name | Source | Version |
 |------|--------|---------|
 | aws\_key\_pair | cloudposse/key-pair/aws | 0.18.3 |
+| cvesync\_eventbridge | terraform-aws-modules/eventbridge/aws | 3.11.0 |
+| cvesync\_lambda | terraform-aws-modules/lambda/aws | 7.9.0 |
 | documentdb-cluster | cloudposse/documentdb-cluster/aws | 0.27.0 |
 | ec2 | cloudposse/ec2-instance/aws | 1.6.0 |
 | kevsync\_eventbridge | terraform-aws-modules/eventbridge/aws | 3.11.0 |
@@ -63,10 +70,12 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 
 | Name | Type |
 |------|------|
+| [aws_lambda_invocation.cvesync](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_invocation) | resource |
 | [aws_lambda_invocation.kevsync](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_invocation) | resource |
 | [aws_security_group_rule.egress_from_ec2_to_documentdb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.ingress_from_ec2_to_documentdb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_caller_identity.cyhy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_s3_object.cvesync_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_object) | data source |
 | [aws_s3_object.kevsync_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_object) | data source |
 
 ## Inputs ##
@@ -75,6 +84,18 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 |------|-------------|------|---------|:--------:|
 | aws\_availability\_zones | The list of AWS availability zones to deploy into (e.g. ["us-east-1a", "us-east-1b", "us-east-1c"]. | `list(string)` | ```[ "us-east-1a", "us-east-1b", "us-east-1c" ]``` | no |
 | aws\_region | The AWS region to deploy into (e.g. "us-east-1"). | `string` | `"us-east-1"` | no |
+| cvesync\_lambda\_cloudwatch\_logs\_retention\_in\_days | The number of days to retain CloudWatch logs for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `number` | `90` | no |
+| cvesync\_lambda\_config\_ssm\_key | The SSM key that contains the configuration to use for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `string` | `"/cyhy-cvesync/config"` | no |
+| cvesync\_lambda\_description | The description to associate with the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `string` | `"Syncs CVE data to the database in the Cyber Hygiene account."` | no |
+| cvesync\_lambda\_env\_variables | The environment variables to set for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `map(string)` | `{}` | no |
+| cvesync\_lambda\_handler | The handler to use for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `string` | `"lambda_handler.handler"` | no |
+| cvesync\_lambda\_memory | The amount of memory (in MB) to allocate to the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `number` | `2048` | no |
+| cvesync\_lambda\_name | The name to assign the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `string` | `"cyhy-cvesync"` | no |
+| cvesync\_lambda\_runtime | The runtime to use for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `string` | `"python3.12"` | no |
+| cvesync\_lambda\_s3\_bucket | The name of the S3 bucket where the cyhy-cvesync Lambda deployment package is stored. | `string` | n/a | yes |
+| cvesync\_lambda\_s3\_key | The key of the cyhy-cvesync Lambda deployment package in the S3 bucket. | `string` | `"cyhy-cvesync-lambda.zip"` | no |
+| cvesync\_lambda\_schedule | The EventBridge expression that represents when to run the Lambda function that syncs CVE data to the database in the Cyber Hygiene account.  The default value indicates that the Lambda will run every day at 5:00 AM UTC.  See <https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html> for details on EventBridge expression syntax. | `string` | `"cron(0 5 * * ? *)"` | no |
+| cvesync\_lambda\_timeout | The timeout (in seconds) to use for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `number` | `900` | no |
 | db\_cluster\_size | The number of instances to use for the DocumentDB cluster. | `number` | `3` | no |
 | db\_instance\_class | The instance class to use for the DocumentDB cluster. | `string` | `"db.r5.large"` | no |
 | db\_name | The name of the database to create. | `string` | `"cyhy"` | no |
