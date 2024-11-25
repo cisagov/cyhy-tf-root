@@ -81,7 +81,7 @@ module "cvesync_eventbridge" {
   }
 
   source  = "terraform-aws-modules/eventbridge/aws"
-  version = "3.11.0"
+  version = "3.12.0"
 
   # We are using the default bus, so no need to create it here.
   create_bus = false
