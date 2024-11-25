@@ -23,7 +23,7 @@ module "kevsync_lambda" {
   }
 
   source  = "terraform-aws-modules/lambda/aws"
-  version = "7.9.0"
+  version = "7.15.0"
 
   allowed_triggers = {
     kevsync = {
