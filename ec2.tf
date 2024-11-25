@@ -4,7 +4,7 @@ module "aws_key_pair" {
   }
 
   source  = "cloudposse/key-pair/aws"
-  version = "0.18.3"
+  version = "0.20.0"
 
   generate_ssh_key    = true
   name                = "ec2"
