@@ -60,7 +60,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 | cvesync\_eventbridge | terraform-aws-modules/eventbridge/aws | 3.11.0 |
 | cvesync\_lambda | terraform-aws-modules/lambda/aws | 7.9.0 |
 | documentdb-cluster | cloudposse/documentdb-cluster/aws | 0.27.0 |
-| ec2 | cloudposse/ec2-instance/aws | 1.6.0 |
+| ec2 | cloudposse/ec2-instance/aws | 1.6.1 |
 | kevsync\_eventbridge | terraform-aws-modules/eventbridge/aws | 3.11.0 |
 | kevsync\_lambda | terraform-aws-modules/lambda/aws | 7.9.0 |
 | subnets | cloudposse/dynamic-subnets/aws | 2.4.2 |
