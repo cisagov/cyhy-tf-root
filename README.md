@@ -56,7 +56,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 
 | Name | Source | Version |
 |------|--------|---------|
-| aws\_key\_pair | cloudposse/key-pair/aws | 0.18.3 |
+| aws\_key\_pair | cloudposse/key-pair/aws | 0.20.0 |
 | cvesync\_eventbridge | terraform-aws-modules/eventbridge/aws | 3.11.0 |
 | cvesync\_lambda | terraform-aws-modules/lambda/aws | 7.9.0 |
 | documentdb-cluster | cloudposse/documentdb-cluster/aws | 0.27.0 |
