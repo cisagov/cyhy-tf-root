@@ -23,7 +23,7 @@ module "cvesync_lambda" {
   }
 
   source  = "terraform-aws-modules/lambda/aws"
-  version = "7.16.0"
+  version = "7.20.1"
 
   allowed_triggers = {
     cvesync = {
