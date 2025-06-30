@@ -80,7 +80,7 @@ module "kevsync_eventbridge" {
   }
 
   source  = "terraform-aws-modules/eventbridge/aws"
-  version = "3.13.0"
+  version = "4.0.0"
 
   # We are using the default bus, so no need to create it here.
   create_bus = false
