@@ -43,7 +43,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 1.1 |
+| terraform | >= 1.1 |
 | aws | ~> 5.0 |
 
 ## Providers ##
