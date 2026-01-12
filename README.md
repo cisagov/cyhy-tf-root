@@ -1,6 +1,8 @@
 # cyhy-tf-root #
 
 [![GitHub Build Status](https://github.com/cisagov/cyhy-tf-root/workflows/build/badge.svg)](https://github.com/cisagov/cyhy-tf-root/actions)
+[![License](https://img.shields.io/github/license/cisagov/cyhy-tf-root)](https://spdx.org/licenses/)
+[![CodeQL](https://github.com/cisagov/cyhy-tf-root/workflows/CodeQL/badge.svg)](https://github.com/cisagov/cyhy-tf-root/actions/workflows/codeql-analysis.yml)
 
 This is a [Terraform root module](https://www.terraform.io/docs/modules/index.html)
 that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
