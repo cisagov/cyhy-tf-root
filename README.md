@@ -44,20 +44,20 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 ## Requirements ##
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | terraform | >= 1.1 |
 | aws | ~> 5.0 |
 
 ## Providers ##
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | aws.provisionaccount | ~> 5.0 |
 
 ## Modules ##
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | aws\_key\_pair | cloudposse/key-pair/aws | 0.20.0 |
 | cvesync\_eventbridge | terraform-aws-modules/eventbridge/aws | 3.13.0 |
 | cvesync\_lambda | terraform-aws-modules/lambda/aws | 7.16.0 |
@@ -71,7 +71,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 ## Resources ##
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_lambda_invocation.cvesync](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_invocation) | resource |
 | [aws_lambda_invocation.kevsync](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_invocation) | resource |
 | [aws_security_group_rule.egress_from_ec2_to_documentdb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
@@ -83,7 +83,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | aws\_availability\_zones | The list of AWS availability zones to deploy into (e.g. ["us-east-1a", "us-east-1b", "us-east-1c"]. | `list(string)` | ```[ "us-east-1a", "us-east-1b", "us-east-1c" ]``` | no |
 | aws\_region | The AWS region to deploy into (e.g. "us-east-1"). | `string` | `"us-east-1"` | no |
 | cvesync\_lambda\_cloudwatch\_logs\_retention\_in\_days | The number of days to retain CloudWatch logs for the Lambda function that syncs CVE data to the database in the Cyber Hygiene account. | `number` | `90` | no |
@@ -123,7 +123,7 @@ that can be used to create a Cyber Hygiene (CyHy) environment in AWS.
 ## Outputs ##
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | documentdb\_arn | The ARN of the DocumentDB cluster. |
 | documentdb\_endpoint | The endpoint of the DocumentDB cluster. |
 | documentdb\_sg\_arn | The ARN of the DocumentDB cluster security group. |
