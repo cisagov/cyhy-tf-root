@@ -18,7 +18,7 @@ module "ec2" {
   }
 
   source  = "cloudposse/ec2-instance/aws"
-  version = "1.6.1"
+  version = "2.0.0"
 
   associate_public_ip_address = true
   instance_type               = "t3.micro"
